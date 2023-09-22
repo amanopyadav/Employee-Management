@@ -1,0 +1,142 @@
+<!-- Import Angular Material CSS in your styles.scss or styles.css -->
+<!-- Example: -->
+<!-- @import '~@angular/material/prebuilt-themes/indigo-pink.css'; -->
+
+<!-- Your component's HTML template -->
+<h3 class="mat-title custom-text-color">Employee Management</h3>
+<hr />
+<div class="mat-elevation-z2 row">
+    <div class="col-xs-12 col-md-4">
+        <form [formGroup]="empObject.formCustomerGroup">
+            <h3 class="mat-title custom-text-color">Employee Form</h3>
+            <hr />
+            <div class="row mb-3">
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <input matInput type="text" placeholder="First name" [(ngModel)]="empObject.first_name"
+                            formControlName="EmployeeFirstName">
+                        <mat-error *ngIf="empObject.formCustomerGroup.controls['EmployeeFirstName'].hasError('required')">
+                            First Name is required.
+                        </mat-error>
+                        <mat-error
+                            *ngIf="empObject.formCustomerGroup.controls['EmployeeFirstName'].hasError('pattern')">
+                            First Name should be of 3 letters.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <input matInput type="text" placeholder="Last name" [(ngModel)]="empObject.last_name"
+                            formControlName="EmployeeLastName">
+                        <mat-error *ngIf="empObject.formCustomerGroup.controls['EmployeeLastName'].hasError('required')">
+                            Last Name is required.
+                        </mat-error>
+                        <mat-error
+                            *ngIf="empObject.formCustomerGroup.controls['EmployeeLastName'].hasError('pattern')">
+                            Last Name should be of 5 letters.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+                
+            
+            <div class="row mb-3">
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <input matInput type="number" placeholder="Contact No." [(ngModel)]="empObject.contact"
+                            formControlName="EmployeeContact">
+                        <mat-error *ngIf="empObject.formCustomerGroup.controls['EmployeeContact'].hasError('required')">
+                            Contact is required.
+                        </mat-error>
+                        <mat-error
+                            *ngIf="empObject.formCustomerGroup.controls['EmployeeContact'].hasError('pattern')">
+                            Contact Number should be of 10 digits.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <input matInput type="email" placeholder="Email" [(ngModel)]="empObject.email"
+                            formControlName="EmployeeEmail">
+                        <mat-error *ngIf="empObject.formCustomerGroup.controls['EmployeeEmail'].hasError('required')">
+                            Email is required.
+                        </mat-error>
+                        <mat-error
+                            *ngIf="empObject.formCustomerGroup.controls['EmployeeEmail'].hasError('pattern')">
+                            Email Id is not in proper format.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <input matInput type="date" placeholder="DOB" [(ngModel)]="empObject.dob"
+                            formControlName="EmployeeDob">
+                        <mat-error *ngIf="empObject.formCustomerGroup.controls['EmployeeDob'].hasError('required')">
+                            Date of Birth is required.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <input matInput type="text" placeholder="Address" [(ngModel)]="empObject.address"
+                            formControlName="EmployeeAddress">
+                        <mat-error *ngIf="empObject.formCustomerGroup.controls['EmployeeAddress'].hasError('required')">
+                            Address is required.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="d-grid gap-2">
+                <button mat-raised-button color="primary" type="submit"
+                    [disabled]="!(empObject.formCustomerGroup.valid)" (click)="insertEmployee()">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="col-xs-12 col-md-8">
+        <h3 class="mat-title custom-text-color">Employee Records</h3>
+        <hr />
+        <table mat-table class="mat-elevation-z2" [dataSource]="employees">
+            <ng-container matColumnDef="first_name">
+                <th mat-header-cell *matHeaderCellDef>First Name</th>
+                <td mat-cell *matCellDef="let item">{{ item.first_name }}</td>
+            </ng-container>
+            <ng-container matColumnDef="last_name">
+                <th mat-header-cell *matHeaderCellDef>Last Name</th>
+                <td mat-cell *matCellDef="let item">{{ item.last_name }}</td>
+            </ng-container>
+            <ng-container matColumnDef="contact">
+                <th mat-header-cell *matHeaderCellDef>Contact</th>
+                <td mat-cell *matCellDef="let item">{{ item.contact }}</td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef>Email</th>
+                <td mat-cell *matCellDef="let item">{{ item.email }}</td>
+            </ng-container>
+            <ng-container matColumnDef="dob">
+                <th mat-header-cell *matHeaderCellDef>Date of Birth</th>
+                <td mat-cell *matCellDef="let item">{{ item.dob }}</td>
+            </ng-container>
+            <ng-container matColumnDef="address">
+                <th mat-header-cell *matHeaderCellDef>Address</th>
+                <td mat-cell *matCellDef="let item">{{ item.address }}</td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let item">
+                    <button mat-icon-button color="primary" (click)="updateEmployee(item)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="deleteEmployee(item)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</div>

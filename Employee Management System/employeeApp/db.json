@@ -1,0 +1,31 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "first_name": "Joel",
+      "last_name": "Dsouza",
+      "contact": 8452881429,
+      "email": "joel.dsouza@mindcraft.in",
+      "dob": "2001-06-08",
+      "address": "Mumbai"
+    },
+    {
+      "id": 2,
+      "first_name": "Samy",
+      "last_name": "Shetty",
+      "contact": 9978231456,
+      "email": "samy.shetty@mindcraft.in",
+      "dob": "2001-08-10",
+      "address": "Andheri"
+    },
+    {
+      "id": 3,
+      "first_name": "Aman",
+      "last_name": "Yadav",
+      "contact": 9089765412,
+      "email": "yadav.aman@mindcraft.in",
+      "dob": "2001-08-08",
+      "address": "Borivali"
+    }
+  ]
+}
